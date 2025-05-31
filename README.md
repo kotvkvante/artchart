@@ -1,10 +1,9 @@
 # Описание
 Инструмент для создания графиков на чертеже в программе КОМПАС-3D.
 
-![alt text](figures/A00_simple_line.png)
+![Картинка](figures/A00_simple_line.png)
 
-Обзор:
-[![alt text](https://img.youtube.com/vi/2_AllszUrcE/maxresdefault.jpg)](https://www.youtube.com/watch?v=2_AllszUrcE)
+[Обзор](https://www.youtube.com/watch?v=2_AllszUrcE)
 
 # Использование
 
