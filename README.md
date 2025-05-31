@@ -14,15 +14,15 @@
 4. Выберите имя для файла макроса, например `test1.cdm`. Откроется среда разработки PyScripter.
 5. Скопируйте код из примера (`examples/A00_simple_line.cdm`) в конец файла `test1.cdm`.
 6. Раскомментируйте следующие строчки и добавьте абсолютный путь до кода библиотеки:
-```
-# import sys
-# sys.path.append(r"/абслютный/путь/до/artchart/src/")
-```
-Например:
-```
-import sys
-sys.path.append(r"C:/Users/user/Documents/Dev/artchart/src/")
-```
+  ```
+  # import sys
+  # sys.path.append(r"/абслютный/путь/до/artchart/src/")
+  ```
+  Например:
+  ```
+  import sys
+  sys.path.append(r"C:/Users/user/Documents/Dev/artchart/src/")
+  ```
 7. Нажмите кнопку Run (Ctrl + F9).
 *) При запуске, скрипт создаст график на новом виде активного документа-чертежа.
 
@@ -32,13 +32,13 @@ sys.path.append(r"C:/Users/user/Documents/Dev/artchart/src/")
 2. Откройте КОМПАС-3D.
 2. Tools -> Command Prompt.
 3. Переходим в папку распакованного архива artchart-<version>:
-```
-cd "path/to/artchart-<version>"
-````
+  ```
+  cd "path/to/artchart-<version>"
+  ```
 4. Запускаем установку:
-```
-python setup.py install
-```
+  ```
+  python setup.py install
+  ```
 2. В КОМПАС-3D создайте новый файл чертежа.
 3. В панели КОМПАС-Макро -> Макросы -> Создать.
 4. Выберите имя для файла макроса, например `test1.cdm`. Откроется среда разработки PyScripter.
