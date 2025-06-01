@@ -170,13 +170,3 @@ class Chart:
             y1 = y2
 
         self.bridge.macro_end(name)
-
-if __name__ == '__main__':
-
-    ch1 = Chart(
-        None,
-        step = (10, 25),
-        xlims = (0, 3000),
-        ylims = (0, 1000),
-        rdim = (250, 500),
-    )
