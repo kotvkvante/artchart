@@ -1,0 +1,27 @@
+[build-system]
+requires = [
+  "setuptools >= 77.0.3"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "artchart"
+version = "0.0.3"
+authors = [
+  { name = "Никита M.", email = "kot-b-kbahte@yandex.ru" },
+]
+description = "Инструмент для создания графиков на чертеже в программе КОМПАС-3D."
+readme = "README.md"
+
+requires-python = ">=3.2"
+
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+
+license = "MIT"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://gitflic.ru/project/kotvkvante/artchart"
