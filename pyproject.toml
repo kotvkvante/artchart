@@ -27,5 +27,9 @@ classifiers = [
 license = "MIT"
 license-files = ["LICEN[CS]E*"]
 
+[options]
+package_dir = {"" = "src"}
+
+
 [project.urls]
 Homepage = "https://gitflic.ru/project/kotvkvante/artchart"
