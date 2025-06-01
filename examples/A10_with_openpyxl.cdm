@@ -9,6 +9,7 @@ import artchart.colors as colors
 
 
 def load_data():
+    # Считывание данных из excel
     wb = xl.load_workbook("data/file1.xlsx", data_only = True)     # Загрузка файла excel
     sheet = wb.active # Выбор листа, с которым будем работать
 

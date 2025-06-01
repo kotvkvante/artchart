@@ -1,0 +1,93 @@
+import numpy as np
+import pandas as pd # Импорт библиотеки для чтения файлов
+
+# import sys
+# sys.path.append(r"/path/to/artchart/src/")
+import artchart.artchart as ac
+from artchart.kompas_bridge import KompasBridge_v7
+import artchart.colors as colors
+
+
+def load_data():
+    # Cчитывание данных из excel
+    Plot_1_3ms = pd.read_excel("data/1mm_3ms.xlsx", sheet_name = "Sheet1")
+
+    # Считывание данных из текстового файла
+    # sep = "\t" - в качестве разделителя между столбцами используется табуляция
+    # skiprows = 4 - пропуск первых четырех строк
+    Plot_4_3ms = pd.read_csv("data/Plot_4_3ms", sep = "\t", header = None, skiprows = 4)
+
+    Plot_4_3ms = Plot_4_3ms.drop(Plot_4_3ms.index[-1])  # Удаляется последняя строка
+    Plot_4_3ms.sort_values(by = 0, inplace = True, ignore_index = True) # Сортировка таблицы по вервому столбцу
+
+    # Запись считанных данных в массив numpy
+    P4_3ms = np.zeros((Plot_4_3ms[0].size, 2))
+    P4_3ms[:,0] = Plot_4_3ms[0]
+    P4_3ms[:,1] = Plot_4_3ms[1]
+
+    # Считывание данных из текстового файла
+    # "\s+" - в качестве разделителя используется один или несколько пробелов
+    Plot_3_t = pd.read_csv("data/Theoretical skin friction coefficient.txt", sep = r"\s+", header = None, skiprows = 4)
+    Plot_3_t = Plot_3_t.drop(Plot_3_t.index[-1])  # Удаляется полседняя строка
+    Plot_3_t[0] = pd.to_numeric(Plot_3_t[0])  # Преобразование текстовых данных в числа
+    Plot_3_t[1] = pd.to_numeric(Plot_3_t[1])  # Преобразование текстовых данных в числа
+    Plot_3_t.sort_values(by = 0, inplace = True, ignore_index = True)  # Сортировка таблицы по вервому столбцу
+
+    return Plot_1_3ms, P4_3ms, Plot_3_t
+
+
+Plot_1_3ms, P4_3ms, Plot_3_t = load_data()
+
+
+bridge7 = KompasBridge_v7(
+    kompas_api7_module,
+    kompas6_constants,
+    kompas_document_2d
+)
+
+
+# График 1
+ch1 = ac.Chart(
+    bridge7,
+    step = (0.1, 0.01),
+    xlims = (0, 3.2),
+    ylims = (0, 0.1),
+    rdim = (500, 250),
+    axprec = (1, 3),
+    view_name = "График 1"
+)
+ch1.background()
+
+ch1.plot(Plot_1_3ms["w_x01"], Plot_1_3ms["y_x01"], "x01", color = colors.RANDOM)
+ch1.plot(Plot_1_3ms["w_x03"], Plot_1_3ms["y_x03"], "x03", color = colors.RANDOM)
+ch1.plot(Plot_1_3ms["w_x05"], Plot_1_3ms["y_x05"], "x05", color = colors.RANDOM)
+ch1.plot(Plot_1_3ms["w_x07"], Plot_1_3ms["y_x07"], "x07", color = colors.RANDOM)
+ch1.plot(Plot_1_3ms["w_x09"], Plot_1_3ms["y_x09"], "x09", color = colors.RANDOM)
+
+
+# График 2
+ch2 = ac.Chart(
+    bridge7,
+    step = (0.1, 0.001),
+    xlims = (0, 1),
+    ylims = (0, 0.01),
+    rdim = (500, 250),
+    axprec = (1, 2),
+    view_name = "График 2",
+)
+ch2.background()
+ch2.plot(P4_3ms[:,0], P4_3ms[:,1], "1 mm 3 m/s", color = colors.RANDOM)
+
+
+# График 3
+ch3 = ac.Chart(
+    bridge7,
+    step = (100000, 0.01),
+    xlims = (100, 1000000),
+    ylims = (0, 0.07),
+    rdim = (500, 250),
+    axprec = (0, 2),
+    view_name = "График 3",
+)
+ch3.background()
+ch3.plot(Plot_3_t[0], Plot_3_t[1], "theory", color = colors.RANDOM)
