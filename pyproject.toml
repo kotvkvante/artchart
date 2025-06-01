@@ -15,6 +15,10 @@ readme = "README.md"
 
 requires-python = ">=3.2"
 
+dependencies = [
+    "pywin32",
+]
+
 classifiers = [
     "Programming Language :: Python :: 3",
     "Operating System :: OS Independent",
