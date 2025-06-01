@@ -19,7 +19,7 @@ ch1 = ac.Chart(
     ylims = (-2, 2),
     rdim = (500, 250),
     axprec = (1, 1),
-    view_name = "График Функции sin(x)",
+    view_name = "Графики Функций",
 )
 ch1.background()
 
