@@ -6,6 +6,7 @@ import artchart.artchart as ac
 from artchart.kompas_bridge import KompasBridge_v7
 import artchart.colors as colors
 
+
 # Мост (bridge) между API Компаса и библиотекой artchart
 bridge7 = KompasBridge_v7(
     kompas_api7_module,

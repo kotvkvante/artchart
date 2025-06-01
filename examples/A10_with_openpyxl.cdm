@@ -1,0 +1,73 @@
+import numpy as np
+import openpyxl as xl # Импорт библиотеки для чтения файлов excel
+
+# import sys
+# sys.path.append(r"/path/to/artchart/src/")
+import artchart.artchart as ac
+from artchart.kompas_bridge import KompasBridge_v7
+import artchart.colors as colors
+
+
+def load_data():
+    wb = xl.load_workbook("data/file1.xlsx", data_only = True)     # Загрузка файла excel
+    sheet = wb.active # Выбор листа, с которым будем работать
+
+    N_rows = sheet.max_row     # Считываем число строк на листе
+    N_title = 1                # Указываем число строк, занимаемых шапкой таблицы
+
+    # Создаем массивы numpy для хранения считанных данных
+    x = np.zeros(N_rows)
+    y = np.zeros(N_rows)
+    z = np.zeros(N_rows)
+
+    # Считываем данные из ячеек
+    for i in range(N_rows):
+        # В openpyxl нумерация начинается с 1, поэтому добавляем 1 к индексу строки (столбца)
+        # Так как число строк определяется самым длинным столбцом в пустые ячейки записывается NaN
+        x[i] = sheet.cell(row = i + N_title + 1, column = 1).value
+        y[i] = sheet.cell(row = i + N_title + 1, column = 2).value
+        z[i] = sheet.cell(row = i + N_title + 1, column = 3).value
+
+    ksi = np.zeros(N_rows)
+    eta = np.zeros(N_rows)
+    for i in range(N_rows):
+        ksi[i] = sheet.cell(row = i + N_title + 1, column = 5).value
+        eta[i] = sheet.cell(row = i + N_title + 1, column = 6).value
+
+    return x, y, z, ksi, eta
+
+
+x, y, z, ksi, eta = load_data()
+
+bridge7 = KompasBridge_v7(
+    kompas_api7_module,
+    kompas6_constants,
+    kompas_document_2d
+)
+
+# График 1
+ch1 = ac.Chart(
+    bridge7,
+    step = (1, 1),
+    xlims = (0, 10),
+    ylims = (0, 10),
+    rdim = (500, 250),
+    axprec = (1, 1),
+    view_name = "График 1"
+)
+ch1.background()
+ch1.plot(x, y, "line_y", color = colors.RANDOM)
+ch1.plot(x, z, "line_z", color = colors.RANDOM)
+
+# График 2
+ch2 = ac.Chart(
+    bridge7,
+    step = (5, 0.1),
+    xlims = (0, 30),
+    ylims = (0, 1.1),
+    rdim = (500, 250),
+    axprec = (1, 1),
+    view_name = "График 2",
+)
+ch2.background()
+ch2.plot(ksi, eta, "line_ksi_eta", color = colors.RANDOM)
