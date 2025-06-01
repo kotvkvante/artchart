@@ -38,13 +38,13 @@
 5. Создайте новую директрию для сохранения макросов, задайте имя для файла макроса, например `test1.cdm`, и нажмите сохранить. Далее откроется встроенная среда разработки PyScripter.
 6. В PyScripter выберите Tools -> Tools -> Command Prompt.
 7. Перейдите в директорию распакованного архива artchart-<version>:
-```
-cd "path/to/artchart-<version>"
-```
+  ```
+  cd "path/to/artchart-<version>"
+  ```
 8. Запускаем установку:
-```
-python setup.py install
-```
+  ```
+  python setup.py install
+  ```
 9. Скопируйте код из примера (`examples/A00_simple_line.cdm`) в конец файла `test1.cdm`.
 10. Нажмите кнопку Run (Ctrl + F9).
 *) При запуске, скрипт создаст график на новом виде активного документа-чертежа.
