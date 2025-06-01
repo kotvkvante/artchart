@@ -1,0 +1,33 @@
+import numpy as np
+
+# import sys
+# sys.path.append(r"/path/to/artchart/src/")
+import artchart.artchart as ac
+from artchart.kompas_bridge import KompasBridge_v7
+import artchart.colors as colors
+
+bridge7 = KompasBridge_v7(
+    kompas_api7_module,
+    kompas6_constants,
+    kompas_document_2d
+)
+
+ch1 = ac.Chart(
+    bridge7,
+    step = (1, 0.2),
+    xlims = (-7, 7),
+    ylims = (-2, 2),
+    rdim = (500, 250),
+    axprec = (1, 1),
+    view_name = "График Функции sin(x)",
+)
+ch1.background()
+
+X_arr = np.linspace(-6, 6, num = 500)
+Y1_arr = np.sin(X_arr)
+Y2_arr = np.cos(X_arr) + 0.5
+Y3_arr = np.cos(X_arr**2)
+
+ch1.plot(X_arr, Y1_arr, "line1", color = colors.RANDOM)
+ch1.plot(X_arr, Y2_arr, "line2", color = colors.RANDOM)
+ch1.plot(X_arr, Y3_arr, "line3", color = colors.RANDOM)
