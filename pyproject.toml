@@ -6,9 +6,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "artchart"
-version = "0.0.3"
+version = "0.1.0"
 authors = [
-  { name = "Никита M.", email = "kot-b-kbahte@yandex.ru" },
+  { name = "Nikita M.", email = "kot-b-kbahte@yandex.ru" },
 ]
 description = "Инструмент для создания графиков на чертеже в программе КОМПАС-3D."
 readme = "README.md"
