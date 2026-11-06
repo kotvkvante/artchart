@@ -15,12 +15,14 @@ class KompasBridge_v7():
         self.vlm = self.doc2d.ViewsAndLayersManager
 
         self.macro_objects = dict()
+        self.macro_object_containers = dict()
         self.layers = dict()
 
     def init(self, config):
         self.view_init(config.get("view_name"))
 
         self.dc = self.api7.IDrawingContainer(self.view)
+
         self.ls = self.view.Layers
         self.dts = self.dc.DrawingTexts
         self.lss = self.dc.LineSegments
@@ -34,6 +36,7 @@ class KompasBridge_v7():
             self.view.Name = view_name
             self.view.X = 0
             self.view.Y = 0
+            self.view.Scale = 1.0
             self.view.Update()
         else:
             self.view = self.vlm.Views.ActiveView
@@ -49,6 +52,7 @@ class KompasBridge_v7():
         rect.Update()
         return rect
 
+
     def draw_line(self, x1, y1, x2, y2, style = 1):
         line = self.lss.Add()
         line.X1 = x1
@@ -58,6 +62,7 @@ class KompasBridge_v7():
         line.Style = style
         line.Update()
         return line
+
 
     def draw_text(self, x0, y0, text):
         dt = self.dts.Add()
@@ -80,20 +85,29 @@ class KompasBridge_v7():
         L.Update()
         self.layers[name] = L
 
+
     def macro_start(self, name = "Макро", to_layer = False, color = colors.RANDOM):
-        m = self.mos.Add()
-        m.Name = name
+        macro = self.mos.Add()
+        macro.Name = name
 
         if to_layer:
-            if (color == colors.RANDOM): color = colors.random_color()
+            if (color == colors.RANDOM):
+                color = colors.random_color()
 
             self.layer_new(name, color = color)
-            m.LayerNumber = self.layers[name].LayerNumber
+            macro.LayerNumber = self.layers[name].LayerNumber
 
-        self.macro_objects[name] = m
+        self.macro_objects[name] = macro
+
 
     def macro_add(self, name = "Макро", obj = None):
-        self.macro_objects[name].AddObjects(obj)
+        m = self.macro_objects.get(name)
+        if (m):
+            m.AddObjects(obj)
+        else:
+            # TODO: Warning
+            pass
+
 
     def macro_end(self, name = "Макро"):
         self.macro_objects[name].Update()

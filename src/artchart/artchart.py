@@ -123,32 +123,28 @@ class Chart:
             print("y_ticks > DEFAULT_Y_TICKS_MAX")
             y_ticks = DEFAULT_Y_TICKS_MAX
 
-
-        self.bridge.macro_start("x_ticks")
-        self.bridge.macro_start("y_ticks")
         # вдоль оси x
+        self.bridge.macro_start("x_ticks")
         for i in range(x_ticks):
             xi = i * self.x_rstep
             line = self.bridge.draw_line(xi, 0, xi, self.y_rdelta, 2)
-            self.bridge.macro_add("background", line)
 
             tick = self.x_min + i * self.x_step
             str = self.x_axprecf.format(tick).replace(".", DEFAULT_DELIM)
             text = self.bridge.draw_text(xi, -10, str)
-            self.bridge.macro_add("x_ticks", text)
+
+        self.bridge.macro_end("x_ticks")
 
         # вдоль оси y
+        self.bridge.macro_start("y_ticks")
         for j in range(y_ticks):
             yj = j * self.y_rstep
             line = self.bridge.draw_line(0, yj, self.x_rdelta, yj, 2)
-            self.bridge.macro_add("background", line)
 
             tick = self.y_min + j * self.y_step
             str = self.y_axprecf.format(tick).replace(".", DEFAULT_DELIM)
             text = self.bridge.draw_text(-10, yj - DEFAULT_Y0_TICKS, str)
-            self.bridge.macro_add("y_ticks", text)
 
-        self.bridge.macro_end("x_ticks")
         self.bridge.macro_end("y_ticks")
 
 
@@ -164,7 +160,6 @@ class Chart:
             y2 = yi
 
             line = self.bridge.draw_line(x1, y1, x2, y2, DEFAULT_CHART_LINE_STYLE)
-            self.bridge.macro_add(name, line)
 
             x1 = x2
             y1 = y2
